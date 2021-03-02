@@ -1,0 +1,110 @@
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8" multiTemplateDataRows>
+
+    <ng-container matColumnDef="check">
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let element"> {{element.check}}</td>
+    </ng-container>
+    <ng-container matColumnDef="nombre">
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let element"> {{element.nombre}} </td>
+    </ng-container>
+    <!-- Name Column -->
+    <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef> Name </th>
+        <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+    </ng-container>
+    <!--- Note that these columns can be defined in any order.
+          The actual rendered columns are set as a property on the row definition" -->
+
+    <!-- Position Column -->
+    <ng-container matColumnDef="position">
+        <th mat-header-cell *matHeaderCellDef> J </th>
+        <td mat-cell *matCellDef="let element"> {{element.position}} </td>
+    </ng-container>
+    <ng-container matColumnDef="position1">
+        <th mat-header-cell *matHeaderCellDef> P. </th>
+        <td mat-cell *matCellDef="let element"> {{element.position1}} </td>
+    </ng-container>
+    <ng-container matColumnDef="position2">
+        <th mat-header-cell *matHeaderCellDef> Q. </th>
+        <td mat-cell *matCellDef="let element"> {{element.position2}} </td>
+    </ng-container>
+    <ng-container matColumnDef="position3">
+        <th mat-header-cell *matHeaderCellDef> R. </th>
+        <td mat-cell *matCellDef="let element"> {{element.position3}} </td>
+    </ng-container>
+    <ng-container matColumnDef="position4">
+        <th mat-header-cell *matHeaderCellDef> X. </th>
+        <td mat-cell *matCellDef="let element"> {{element.position4}} </td>
+    </ng-container>
+    <ng-container matColumnDef="position5">
+        <th mat-header-cell *matHeaderCellDef> X. </th>
+        <td mat-cell *matCellDef="let element"> {{element.position5}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="position6">
+        <th mat-header-cell *matHeaderCellDef> X. </th>
+        <td mat-cell *matCellDef="let element"> {{element.position6}} </td>
+    </ng-container>
+    <ng-container matColumnDef="position7">
+        <th mat-header-cell *matHeaderCellDef> X. </th>
+        <td mat-cell *matCellDef="let element"> {{element.position7}} </td>
+    </ng-container>
+    <ng-container matColumnDef="position8">
+        <th mat-header-cell *matHeaderCellDef> X. </th>
+        <td mat-cell *matCellDef="let element"> {{element.position8}} </td>
+    </ng-container>
+    <ng-container matColumnDef="position9">
+        <th mat-header-cell *matHeaderCellDef> X. </th>
+        <td mat-cell *matCellDef="let element"> {{element.position9}} </td>
+    </ng-container>
+    <ng-container matColumnDef="position10">
+        <th mat-header-cell *matHeaderCellDef> X. </th>
+        <td mat-cell *matCellDef="let element"> {{element.position10}} </td>
+    </ng-container>
+    <ng-container matColumnDef="position11">
+        <th mat-header-cell *matHeaderCellDef> X. </th>
+        <td mat-cell *matCellDef="let element"> {{element.position11}} </td>
+    </ng-container>
+
+
+
+    <ng-container matColumnDef="header-row-vacio-group">
+        <th mat-header-cell *matHeaderCellDef [style.border]="0" [attr.colspan]="0" [attr.rowspan]="1"></th>
+    </ng-container>
+    <ng-container matColumnDef="header-row-vacio1-group">
+        <th mat-header-cell *matHeaderCellDef [style.border]="0" [attr.colspan]="0" [attr.rowspan]="1"></th>
+    </ng-container>
+    <ng-container matColumnDef="header-row-vacio2-group">
+        <th mat-header-cell *matHeaderCellDef [style.border]="0" [attr.colspan]="0" [attr.rowspan]="1"></th>
+    </ng-container>
+    <!-- Header row first group -->
+    <ng-container matColumnDef="header-row-first-group">
+        <th mat-header-cell *matHeaderCellDef [style.text-align]="center" [attr.colspan]="5" [attr.rowspan]="1">
+            First group
+        </th>
+    </ng-container>
+
+    <ng-container matColumnDef="header-row-ter-group">
+        <th mat-header-cell *matHeaderCellDef [style.text-align]="center" [attr.colspan]="2" [attr.rowspan]="1">
+            Ter group
+        </th>
+    </ng-container>
+
+    <!-- Header row second group -->
+    <ng-container matColumnDef="header-row-second-group">
+        <th mat-header-cell *matHeaderCellDef [attr.colspan]="5" [attr.rowspan]="1"> Second group </th>
+    </ng-container>
+
+    <tr mat-header-row
+        *matHeaderRowDef="['header-row-vacio1-group','header-row-vacio2-group','header-row-vacio-group','header-row-first-group','header-row-ter-group', 'header-row-second-group']">
+    </tr>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
+
+
+
+<!-- Copyright 2018 Google Inc. All Rights Reserved.
+      Use of this source code is governed by an MIT-style license that
+      can be found in the LICENSE file at http://angular.io/license -->
