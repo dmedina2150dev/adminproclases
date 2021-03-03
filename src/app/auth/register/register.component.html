@@ -70,6 +70,7 @@
 
                             <p *ngIf="campoNoValido('nombre')">El nombre es Obligatorio</p>
                             <p *ngIf="campoNoValido('email')">El email es Obligatorio y debe ser valido</p>
+                            <p *ngIf="passNoValida()">Las contraseñas deben coincidir</p>
                             <p *ngIf="aceptaTerminos()">Es Obligatorio aceptar los términos</p>
 
                         </div>
