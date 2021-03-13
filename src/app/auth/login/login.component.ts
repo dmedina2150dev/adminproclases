@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, NgZone, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UsuarioService } from 'src/app/services/usuario.service';
 import Swal from 'sweetalert2';
+
 
 declare const gapi: any;
 
@@ -24,7 +25,8 @@ export class LoginComponent implements OnInit {
 
 	constructor(private router: Router,
 		private fb: FormBuilder,
-		private usuarioService: UsuarioService
+		private usuarioService: UsuarioService,
+		private ngZone: NgZone
 	) { }
 	ngOnInit() {
 		this.renderButton();
@@ -32,7 +34,6 @@ export class LoginComponent implements OnInit {
 
 
 	login() {
-		//	this.router.navigateByUrl('/');
 		// console.log( this.loginForm.value );
 		this.usuarioService.login(this.loginForm.value)
 			.subscribe((resp: any) => {
@@ -44,6 +45,7 @@ export class LoginComponent implements OnInit {
 						localStorage.removeItem('email');
 					}
 				}
+				this.router.navigateByUrl('/');
 			}, (err) => {
 				Swal.fire('Error', err.error.msg, 'error');
 			});
@@ -63,17 +65,12 @@ export class LoginComponent implements OnInit {
 		this.startApp();
 	}
 
-	startApp () {
-		gapi.load('auth2', () => {
-			// Retrieve the singleton for the GoogleAuth library and set up the client.
-			this.auth2 = gapi.auth2.init({
-				client_id: '932354120676-hme4tipgnr590d3js2b09osged9hcoqv.apps.googleusercontent.com',
-				cookiepolicy: 'single_host_origin',
-				// Request scopes in addition to 'profile' and 'email'
-				//scope: 'additional_scope'
-			});
-			this.attachSignin(document.getElementById('my-signin2'));
-		});
+	async startApp () {
+		await this.usuarioService.googleInit();
+
+		this.auth2 = this.usuarioService.auth2;
+
+		this.attachSignin(document.getElementById('my-signin2'));
 	}
 
 	attachSignin(element) {
@@ -81,9 +78,15 @@ export class LoginComponent implements OnInit {
 		this.auth2.attachClickHandler(element, {},
 			(googleUser) => {
 				const id_token = googleUser.getAuthResponse().id_token;
-				this.usuarioService.loginGoogle(id_token).subscribe();
+				this.usuarioService.loginGoogle(id_token).subscribe(
+					resp => {
+						this.ngZone.run( ()=>{
+							//TODO: mover al dashboard
+							this.router.navigateByUrl('/');
+						});
+					}
+				);
 
-				//TODO: mover al dashboard
 			}, (error) => {
 				alert(JSON.stringify(error, undefined, 2));
 			});
