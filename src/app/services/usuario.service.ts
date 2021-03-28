@@ -8,6 +8,7 @@ import { environment } from '../../environments/environment';
 import { RegisterForm } from '../interfaces/register-form.interface';
 import { LoginForm } from '../interfaces/login-form.interface';
 import { Observable, of } from 'rxjs';
+import { Usuario } from '../models/usuario.model';
 
 
 declare const gapi: any;
@@ -18,6 +19,7 @@ export class UsuarioService {
 
 
 	public auth2: any;
+	public usuario: Usuario
 
 	constructor( private http: HttpClient ) {
 		this.googleInit();
@@ -31,11 +33,27 @@ export class UsuarioService {
 				'x-token': token
 			}
 		}).pipe(
-			tap( (resp: any) =>{
+			map( (resp: any) =>{
+				//console.log(resp);
+				// desestructurar la data que llega
+				const {
+					email,
+					google,
+					img = '',
+					nombre,
+					role,
+					uid
+				} = resp.usuario;
+
+				this.usuario = new Usuario(nombre, email, '', img, role, uid);
+				// un metodo del modelo this.usuario.imprimirUsuario();
 				localStorage.setItem( 'token', resp.token );
+				return true;
 			}),
-			map( (resp: any) => true ),
-			catchError( error => of(false))
+			catchError( error => {
+				console.log(error);
+				return of(false);
+			})
 		);
 	}
 
@@ -77,7 +95,7 @@ export class UsuarioService {
 		return this.http.post(`${ environment.baseUrl }/login`, formData)
 					.pipe(
 						tap( (resp: any) => {
-							// console.log(resp)
+							//console.log(resp)
 							localStorage.setItem( 'token', resp.token );
 						})
 					);
@@ -89,7 +107,7 @@ export class UsuarioService {
 		return this.http.post(`${ environment.baseUrl }/login/google`, {token})
 					.pipe(
 						tap( (resp: any) => {
-							// console.log(resp)
+							console.log(resp)
 							localStorage.setItem( 'token', resp.token );
 						})
 					);
