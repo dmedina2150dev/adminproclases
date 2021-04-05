@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 import { catchError, map, tap } from 'rxjs/operators';
+import { CargarUsuario } from '../interfaces/cargar-usuarios.interface';
 
 
 import { environment } from '../../environments/environment';
@@ -34,6 +35,14 @@ export class UsuarioService {
 		return this.usuario.uid || '';
 	}
 
+	get headers(){
+		return  {
+			headers: {
+				'x-token': this.token
+			}
+		}
+	}
+
 	validarToken(): Observable<boolean> {
 		//const token = localStorage.getItem('token') || '';
 
@@ -53,9 +62,9 @@ export class UsuarioService {
 					role,
 					uid
 				} = resp.usuario;
-				console.group("desde validar token");
-				console.log(uid);
-				console.groupEnd();
+				// console.group("desde validar token");
+				// console.log(uid);
+				// console.groupEnd();
 				this.usuario = new Usuario(nombre, email, '', img, google, role, uid);
 				// un metodo del modelo this.usuario.imprimirUsuario();
 				localStorage.setItem('token', resp.token);
@@ -135,5 +144,9 @@ export class UsuarioService {
 				})
 			);
 
+	}
+
+	cargarUsuarios(desde: number = 0){
+		return this.http.get<CargarUsuario>(`${environment.baseUrl}/usuarios?desde=${desde}`, this.headers);
 	}
 }
