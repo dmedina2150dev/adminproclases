@@ -23,12 +23,13 @@ export class Usuario {
     }*/
 
     get imagenUrl(){
-        // primero comprobar si viene de google
-        if ( this.img.includes('https') ) {
+        if(!this.img){
+            return `${ base_url }/uploads/usuarios/no-image`;
+        }else if ( this.img.includes('https') ) {
+            // primero comprobar si viene de google
             return this.img;
-        }
-        // comporbar si existe
-        if ( this.img ) {
+        }else if ( this.img ) {
+            // comporbar si existe
             return `${ base_url }/uploads/usuarios/${ this.img }`;
         }else{
             return `${ base_url }/uploads/usuarios/no-image`;

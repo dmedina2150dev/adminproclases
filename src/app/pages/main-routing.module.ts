@@ -27,15 +27,10 @@ const routes: Routes = [
             { path: 'perfil', component: PerfilComponent, data: { title: 'Perfil' } },
 
             // mantenimientos
-            { path: 'usuarios', component: UsuariosComponent, data: { title: 'Usuarios de la aplicación' } },
+            { path: 'usuarios', component: UsuariosComponent, data: { title: 'Usuarios de aplicación' } },
 
         ]
     }
-    //{ path: 'path/:routeParam', component: MyComponent },
-    //{ path: 'staticPath', component: ... },
-    //{ path: '**', component: ... },
-    //{ path: 'oldPath', redirectTo: '/staticPath' },
-    //{ path: ..., component: ..., data: { message: 'Custom' }
 ];
 
 @NgModule({
